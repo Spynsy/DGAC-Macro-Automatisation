@@ -11,7 +11,7 @@ Sub attribuer_FFT_PCR()
     
     Set wsRef = Worksheets("Nbres analyses2")
 
-    For Each Cellule In Worksheets("Work-Analyses").Range("B2:B4000") 'Cherche ‡ savoir si une PCR est dÈj‡ attribuÈ ‡ une FFT'
+    For Each Cellule In Worksheets("Work-Analyses").Range("B2:B4000") 'Cherche √† savoir si une PCR est d√©j√† attribu√© √† une FFT'
 
         If Trim(Cellule.Value) = "" Then
 
@@ -19,7 +19,7 @@ Sub attribuer_FFT_PCR()
             
             If Not IsError(Resultat) Then
 
-                Cellule.Value = Resultat 'Inscrit la PCR trouvÈe'
+                Cellule.Value = Resultat 'Inscrit la PCR trouv√©e'
                 Cellule.Offset(0, 1) = MyDate
             End If
 
@@ -44,12 +44,12 @@ Sub Determiner_Type_Correction()
     MyDate = Date
 
     Set wsRef = Worksheets("Nbres analyses2")
-    Set wsPCR = Worksheets("Liste PCR (Vue pÈriode)")
+    Set wsPCR = Worksheets("Liste PCR (Vue p√©riode)")
     
-    For Each Cellule In Worksheets("Corrections PCR-IRF").Range("B2:B4000") 'La cellule calculÈe est sur la colonne B'
+    For Each Cellule In Worksheets("Corrections PCR-IRF").Range("B2:B4000") 'La cellule calcul√©e est sur la colonne B'
         If Trim(Cellule.Value) = "" Then
             
-            If Cellule.Offset(0, -1) <> "" Then 'Regarde si une PCR est dÈj‡ associÈe'
+            If Cellule.Offset(0, -1) <> "" Then 'Regarde si une PCR est d√©j√† associ√©e'
                 Resultat = Application.VLookup(Cellule.Offset(0, -1).Value, _
                 wsRef.Range("M:V"), 6, False)
                 
@@ -105,6 +105,9 @@ Sub Determiner_Type_Correction()
                         Trim(Coflight) = "4F" & Chr(10) & "ATLAS" Or _
                         Trim(Coflight) = "4F" & Chr(10) & "RESMS" Or _
                         Trim(Coflight) = "4F" & Chr(10) & "SWIFT" Or _
+                        Trim(Coflight) = "4F" & Chr(10) & "CDRF" Or _
+                        Trim(Coflight) = "4F" & Chr(10) & "ADAC" Or _
+                        Trim(Coflight) = "4F" & Chr(10) & "MAPM" Or _
                         Trim(Coflight) = "4F" & Chr(10) & "STM" Then 'Toutes les corrections softwares classiques'
             
                             Cellule.Value = "PCR"
@@ -114,7 +117,7 @@ Sub Determiner_Type_Correction()
                             Cellule.Offset(0, 6) = "0"
                         
                         Else
-                            Cellule.Value = "" 'Permet de connaitre les PCR ayant des problËmes d'attributions'
+                            Cellule.Value = "" 'Permet de connaitre les PCR ayant des probl√®mes d'attributions'
                         
                         End If
                     End If
